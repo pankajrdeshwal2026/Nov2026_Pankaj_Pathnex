@@ -2,3 +2,16 @@
 devops roadmap 
 # day02
 linux operating system
+1. ls -la  hidden files 
+2. users and permission
+3. top
+4. user group others 
+   d RWX   - read write execute 
+   d - directory  - file  l link 
+   permission - 4 2 1 
+                R W X
+5 vi editor 
+6. tail head
+7. less n more
+8. umask
+9. 
