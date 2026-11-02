@@ -1,2 +1,4 @@
-# day 02
-linux 
+# day 01
+devops roadmap 
+# day02
+linux operating system
