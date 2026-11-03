@@ -15,3 +15,16 @@ linux operating system
 7. less n more
 8. umask
 9. 
+# day-3 
+hard link and soft links 
+ls - lrht - multiple options
+df -h  disks
+mount -a
+umount 
+du -h 
+find command 
+pipe command 
+sort 
+head
+disk space and inode 
+disk fill but space available , empty files 
