@@ -16,7 +16,7 @@ linux operating system
 8. umask
 9. 
 # day-3 
-hard link and soft links 
+hard link and soft links - only souurce file needed
 ls - lrht - multiple options
 df -h  disks
 mount -a
@@ -27,4 +27,10 @@ pipe command
 sort 
 head
 disk space and inode 
-disk fill but space available , empty files 
+index , inode disk fill but space available , empty files
+tar gzip untar gunzip
+ps command 
+command to delete file longer than 30 days 
+command to delete file larger than 3o gb
+kill command 
+grep command e grep 
