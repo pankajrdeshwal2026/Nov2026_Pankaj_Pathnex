@@ -10,5 +10,5 @@ public_subnet_cidr = "10.20.1.0/24"
 instance_type      = "t3.micro"
 
 # Configure these later if you want SSH access.
-key_pair_name      = null
-allowed_ssh_cidr   = null
+key_pair_name    = "pankaj-dev-key"
+allowed_ssh_cidr = "13.236.209.72/32"
