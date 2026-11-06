@@ -48,3 +48,7 @@ variable $0 $1  most imp
 rsync
 # day5
 git 
+
+curl -4 https://checkip.amazonaws.com
+
+aws day-1
