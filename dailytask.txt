@@ -51,4 +51,7 @@ git
 
 curl -4 https://checkip.amazonaws.com
 
+ssh -i ~/.ssh/pankaj-dev-key.pem ec2-user@3.25.61.35
+
 aws day-1
+l
