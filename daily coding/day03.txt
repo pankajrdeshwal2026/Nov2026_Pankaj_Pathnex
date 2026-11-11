@@ -1,0 +1,33 @@
+# day-3 
+hard link and soft links - only souurce file needed
+ls - lrht - multiple options
+df -h  disks
+mount -a
+umount 
+du -h 
+find command 
+pipe command 
+sort 
+head
+disk space and inode 
+index , inode disk fill but space available , empty files
+tar gzip untar gunzip
+ps command 
+command to delete file longer than 30 days 
+command to delete file larger than 3o gb
+kill command 
+grep command e grep 
+uname
+uptime
+lscpu
+ifconfig
+wget and curl  > download connect data
+script video - 2h video 
+zombie process orphand - tomorrow 
+day-4 
+linux questions practice from sheet 
+runlevel 
+variable $0 $1  most imp 
+rsync
+# day5
+git 
