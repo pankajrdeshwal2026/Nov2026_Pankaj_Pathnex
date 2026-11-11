@@ -7,7 +7,7 @@ FROM python:3.12-slim
 # ------------------------------------------------
 # 2. Set Image Maintainer Information
 # ------------------------------------------------
-LABEL maintainer="pankaj@example.com"
+LABEL maintainer="pankajrdeshwal@gmail.com"
 LABEL application="Pankaj Docker Demo"
 LABEL version="1.0"
 
