@@ -7,6 +7,15 @@ module "vpc" {
   vpc_cidr           = var.vpc_cidr
   public_subnet_cidr = var.public_subnet_cidr
   availability_zone  = var.availability_zone
+
+  public_subnet_2_cidr = var.public_subnet_2_cidr
+  public_subnet_2_az   = var.public_subnet_2_az
+
+  private_subnet_1_cidr = var.private_subnet_1_cidr
+  private_subnet_2_cidr = var.private_subnet_2_cidr
+
+  private_subnet_1_az = var.private_subnet_1_az
+  private_subnet_2_az = var.private_subnet_2_az
 }
 
 module "ec2" {
