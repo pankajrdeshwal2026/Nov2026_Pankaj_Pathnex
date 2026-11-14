@@ -1,14 +1,9 @@
 
-aws_region         = "ap-southeast-2"
-project_name       = "pankaj-aws"
-environment        = "dev"
-availability_zone  = "ap-southeast-2b"
+public_subnet_2_cidr = "10.20.2.0/24"
+public_subnet_2_az   = "ap-southeast-2a"
 
-vpc_cidr           = "10.20.0.0/16"
-public_subnet_cidr = "10.20.1.0/24"
+private_subnet_1_cidr = "10.20.11.0/24"
+private_subnet_1_az   = "ap-southeast-2b"
 
-instance_type      = "t3.micro"
-
-# Configure these later if you want SSH access.
-key_pair_name    = "pankaj-dev-key"
-allowed_ssh_cidr = "13.236.209.72/32"
+private_subnet_2_cidr = "10.20.12.0/24"
+private_subnet_2_az   = "ap-southeast-2a"
