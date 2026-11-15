@@ -1,0 +1,145 @@
+# AWS EKS – Post Cluster Creation Change Log
+
+**Project:** Pankaj AWS Terraform Lab  
+**Cluster:** `pankaj-eks-dev`  
+**AWS Region:** `ap-southeast-2` (Sydney)  
+**Kubernetes Version:** 1.34  
+**Date:** 13 November 2026
+
+## 1. EKS Access and Authentication Configuration
+
+| # | Change performed | Details / Outcome |
+|---|---|---|
+| 1 | Configured kubectl on EC2 | Installed and configured kubectl on the EC2 utility server. |
+| 2 | Configured EKS kubeconfig | Executed `aws eks update-kubeconfig --region ap-southeast-2 --name pankaj-eks-dev`. |
+| 3 | Configured EC2 IAM role access | Added EC2 IAM role `pankaj-eks-ec2-role1` to the EKS `aws-auth` ConfigMap. |
+| 4 | Preserved worker-node authentication | Retained the existing EKS worker-node IAM role mapping. |
+| 5 | Updated aws-auth ConfigMap | Applied the updated `aws-auth.yaml` using `kubectl apply -f aws-auth.yaml`. |
+| 6 | Updated cluster security group | Added inbound TCP 443 access from EC2 security group `sg-0c83728dfc46a6ff4` to the EKS cluster security group. |
+
+**Validation:** EC2 utility server successfully authenticated with the EKS cluster and accessed Kubernetes resources.
+
+## 2. EKS Cluster Validation
+
+| # | Validation | Result |
+|---|---|---|
+| 1 | Checked worker nodes | Two worker nodes registered successfully. |
+| 2 | Checked node readiness | Both nodes showed `Ready`. |
+| 3 | Checked system pods | CoreDNS, kube-proxy and AWS VPC CNI pods were Running. |
+| 4 | Checked pod distribution | Worker nodes were available across two private subnets. |
+
+**Worker nodes:**
+- `10.20.11.130` – Worker node in private subnet 2b.
+- `10.20.12.20` – Worker node in private subnet 2a.
+
+## 3. NGINX Application Deployment
+
+| # | Change performed | Details / Outcome |
+|---|---|---|
+| 1 | Created Kubernetes Deployment | Created deployment named `nginx` using the `nginx` container image. |
+| 2 | Configured replicas | Set desired replica count to 2. |
+| 3 | Created NGINX pods | Kubernetes created two NGINX pods successfully. |
+| 4 | Validated pod status | Both pods reached `1/1 Running`. |
+| 5 | Validated pod distribution | One NGINX pod was scheduled on each worker node. |
+
+**Command executed:**
+
+```bash
+kubectl create deployment nginx --image=nginx --replicas=2
+```
+
+## 4. NGINX Service Configuration
+
+Created an internal Kubernetes Service to expose the NGINX deployment.
+
+**Command executed:**
+
+```bash
+kubectl expose deployment nginx \
+  --port=80 \
+  --target-port=80 \
+  --type=ClusterIP
+```
+
+**Service configuration:**
+
+| Property | Value |
+|---|---|
+| Service name | nginx |
+| Service type | ClusterIP |
+| Cluster IP | 172.20.232.14 |
+| Service port | 80 |
+| Target port | 80 |
+| External IP | None |
+
+## 5. Service Endpoint Validation
+
+Executed:
+
+```bash
+kubectl get endpoints nginx
+```
+
+**Observed endpoints:**
+
+```text
+10.20.11.125:80
+10.20.12.118:80
+```
+
+Both NGINX pods were successfully registered as Service endpoints.
+
+Also inspected the modern EndpointSlice resource:
+
+```bash
+kubectl get endpointslices \
+  -l kubernetes.io/service-name=nginx
+```
+
+## 6. Application Connectivity Testing
+
+Executed an internal HTTP request using a temporary curl pod:
+
+```bash
+kubectl run test-curl \
+  --image=curlimages/curl \
+  --restart=Never \
+  --rm -it \
+  -- curl http://nginx
+```
+
+**Result:** Successful HTTP response.
+
+The default NGINX welcome page was returned, confirming:
+- Kubernetes Service DNS resolution worked.
+- Service-to-pod networking worked.
+- NGINX application responded successfully on port 80.
+- Both backend pods were registered with the Service.
+
+The temporary test pod was automatically deleted after the test.
+
+## 7. Current Environment Status
+
+| Component | Current status |
+|---|---|
+| EKS cluster | Active |
+| Worker nodes | 2 Ready |
+| Kubernetes system pods | Running |
+| NGINX deployment | 2 replicas |
+| NGINX application pods | 2 Running |
+| NGINX Service | ClusterIP created |
+| Service endpoints | 2 registered |
+| Internal HTTP connectivity | Successful |
+| External application access | Not configured |
+
+## 8. Pending / Future Activities
+
+1. Configure an external LoadBalancer Service.
+2. Understand AWS Load Balancer integration with EKS.
+3. Test NGINX access from an external client.
+4. Explore Ingress Controller and Ingress resources.
+5. Manage Kubernetes deployment and Service resources through Terraform or Kubernetes manifests.
+
+**Overall outcome:** EKS cluster access, worker-node validation, NGINX deployment, internal Service creation, endpoint registration and HTTP connectivity testing have been successfully completed.
+
+*Note: The external LoadBalancer and Ingress configurations are not yet implemented. The NGINX Service is currently internal-only.*
