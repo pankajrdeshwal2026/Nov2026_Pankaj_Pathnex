@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "MYAPP"
+  name: "PKAPP"
   namespace: default
   labels:
-    app: "MYAPP"
+    app: "PKAPP"
 spec:
   containers:
-  - name: MYAPP
+  - name: PKAPP
     image: "debian-slim:latest"
     resources:
       limits:
@@ -20,7 +20,7 @@ spec:
     - name: DB_HOST
       valueFrom:
         configMapKeyRef:
-          name: MYAPP
+          name: PKAPP
           key: DB_HOST
     ports:
     - containerPort: 80
